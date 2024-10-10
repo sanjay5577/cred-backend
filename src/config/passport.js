@@ -37,17 +37,14 @@ const jwtVerify = async (payload, next) => {
     return next(new ApiError(401,"Token expired, please re-login"))
   }
 
-   User.findOne({_id: payload.sub}, function(err, user) {
-         if (err) {
-             return next(err, false);
-         }
+   const user = await User.findOne({_id: payload.sub})
          if (user) {
              return next(null, user);
          } else {
              return next(null, false);
              // or you could create a new account
          }
-     }); 
+    
 
   }
   catch(error){

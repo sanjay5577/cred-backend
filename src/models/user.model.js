@@ -41,16 +41,7 @@ const userSchema = mongoose.Schema(
 
       },
     },
-    walletMoney: {
-      type : Number,
-      required : true,
-      default : config.default_wallet_money
-
-    },
-    address: {
-      type: String,
-      default: config.default_address,
-    },
+    
   },
   // Create createdAt and updatedAt fields automatically
   {
@@ -94,11 +85,6 @@ userSchema.methods.isPasswordMatch = async function (password) {
   } catch (err) {
     throw new Error(err);
   }
-};
-
-
-userSchema.methods.hasSetNonDefaultAddress = async function () {
-  return this.address !== config.default_address;
 };
 
 
