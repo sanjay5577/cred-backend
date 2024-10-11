@@ -3,7 +3,7 @@ const { Card , Statement} = require("../models");
 const ApiError = require("../utils/ApiError");
 const config = require("../config/config");
 const { Console } = require("winston/lib/winston/transports");
-const  {generateDefaultTransactions} = require('../models/transaction.model')
+const { generateDefaultTransactions} = require('../models/transaction.model')
 
 
 // TODO: CRIO_TASK_MODULE_Card - Implement the Card service methods
@@ -79,7 +79,8 @@ const addCard = async (user, cardData) => {
   const { cardNumber, expiryDate, nameOnCard, userId  , cvv} = cardData;
     
   
-  const findcard = await Card.find({ userId ,cardNumber });
+  const findcard = await Card.findOne({ userId : userId  ,cardNumber : cardNumber });
+  console.log(findcard);
 
   if(findcard){
     throw new ApiError(400, "Card already added")
@@ -110,6 +111,7 @@ const addCard = async (user, cardData) => {
     await statement.save();
     if (transaction.type === 'Debit') {
       card.outstandingAmount += transaction.amount;
+      await card.save();
     }
   }
 
@@ -143,7 +145,7 @@ const payCardBill =async(cardId , amount)=>{
 
 const getStatementByMonthYear =async(cardId, year, month)=>{
  
-  const statement = await Statement.findOne({ cardId: id, year, month });
+  const statement = await Statement.find({ cardId: cardId, year, month });
     
     if (!statement) {
       throw new ApiError(400, "Statement not found")
@@ -154,7 +156,7 @@ const getStatementByMonthYear =async(cardId, year, month)=>{
 
 
 module.exports = {
-  // getCardByUser,
+   getCardByUser,
   addCard,
   payCardBill,
   getStatementByMonthYear,

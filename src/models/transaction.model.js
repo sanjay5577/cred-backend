@@ -20,20 +20,20 @@ const generateDefaultTransactions = () => {
   const defaultTransactions = [];
   
   // Get current date and subtract months
-  for (let i = 1; i <= 3; i++) {
+  for (let i = 0; i < 3; i++) {
     const month = moment().subtract(i, 'months').format('MM/YYYY');
     
     // Add two transactions for each month
     defaultTransactions.push({
-      amount: Math.floor(Math.random() * 1000) + 1, // Random amount
-      vendor: 'Vendor A',
+      amount: Math.floor(Math.random() * 5000) + 1, // Random amount
+      vendor: 'Grocers',
       type: 'Debit',
       category: 'Groceries',
       month: month,
     });
     defaultTransactions.push({
-      amount: Math.floor(Math.random() * 1000) + 1,
-      vendor: 'Vendor B',
+      amount: Math.floor(Math.random() * 5000) + 1,
+      vendor: 'MediPlus',
       type: 'Credit',
       category: 'Medical',
       month: month,
@@ -45,4 +45,4 @@ const generateDefaultTransactions = () => {
 
 module.exports.Transaction = Transaction;
 module.exports.TransactionSchema = TransactionSchema;
-module.exports.generateDefaultTransactions = generateDefaultTransactions();
+module.exports.generateDefaultTransactions = generateDefaultTransactions;
