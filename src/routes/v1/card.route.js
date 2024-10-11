@@ -12,5 +12,7 @@ const router = express.Router();
 
 router.post("/",auth , validate(cardValidation.addCard), cardController.addCard);
 router.get("/:userId",auth , validate(userValidation.getUser), cardController.getCard);
+router.post("/:cardId/pay",auth , validate(userValidation.getCard), cardController.payBill);
+router.get("/:cardId/statements/:year/:month",auth , validate(userValidation.getCard), cardController.getStatement);
 
 module.exports = router;

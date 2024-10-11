@@ -22,11 +22,15 @@ const CardSchema = new mongoose.Schema({
   },
   cvv: {
     type: Number,
-    required: true, // Start with no outstanding balance
+    required: true, 
+  },
+  creditLimit: {
+    type: Number,
+    default: config.default_credit_money, // Set default credit limit (₹1,00,000 or any desired amount)
   },
   outstandingAmount: {
     type: Number,
-    default: config.default_credit_money, // Start with no outstanding balance
+    default: 0, // Start with no outstanding balance (no spending initially)
   },
 });
 

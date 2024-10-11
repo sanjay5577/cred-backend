@@ -54,24 +54,14 @@ const getUser = catchAsync(async (req, res) => {
       throw new ApiError(403, "User not authorized");
     }
 
-  if (queryParam === 'address') {
-    const addressInfo = await userService.getUserAddressById(userId);
-    if(!addressInfo){
-      throw new ApiError(httpStatus.NOT_FOUND, "Address not found");
-    }
 
-    return res.status(200).send({address :addressInfo.address}); 
-  }
-
-  else{
       
       const user = await userService.getUserById(userId);
       if(!user){
         throw new ApiError(httpStatus.NOT_FOUND, "User not found");
       }
 
-      return res.status(200).send(user);  
-   }    
+      return res.status(200).send(user);    
  
 });
 

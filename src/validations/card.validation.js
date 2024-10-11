@@ -11,6 +11,13 @@ const addCard = {
   }),
 };
 
+const getCard = {
+  params: Joi.object().keys({
+    cardId : Joi.string().custom(objectId)
+  }),
+};
+
 module.exports = {
   addCard,
+  getCard
 };

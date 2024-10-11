@@ -33,7 +33,7 @@ const { cardService } = require("../services");
  */
 const getCard = catchAsync(async (req, res) => {
     const userId = req.params.userId;
-  const card = await cardService.getCardByUser(userId);
+  const card = await cardService.getCardByUser(userId); 
   res.send(card);
 });
 
@@ -49,11 +49,25 @@ const addCard = catchAsync(async (req, res) => {
 });
 
 
+const payBill= catchAsync(async (req, res) => {
+  const cardId = req.params.cardId;
+  const { amount } = req.body;
+const card = await cardService.payCardBill(cardId , amount);
+res.send(card);
+});
+
+
+const getStatement =catchAsync(async (req, res) => {
+  const { cardId, year, month } = req.params;
+  const statement = await cardService.getStatementByMonthYear(cardId, year, month);
+res.send( statement);
+});
 
 
 
 module.exports = {
   getCard,
   addCard,
-
+  payBill,
+  getStatement,
 };
